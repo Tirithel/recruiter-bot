@@ -30,14 +30,17 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+.env
 !/.projenrc.js
 /test-reports/
 junit.xml
 /coverage/
 !/.github/workflows/build.yml
 !/.mergify.yml
-!/.github/workflows/upgrade.yml
+!/.github/dependabot.yml
 !/.github/pull_request_template.md
+!/.prettierignore
+!/.prettierrc.json
 !/.npmrc
 !/test/
 !/tsconfig.json
@@ -45,4 +48,4 @@ junit.xml
 !/src/
 /lib
 /dist/
-!/.eslintrc.json
+!/renovate.json5
