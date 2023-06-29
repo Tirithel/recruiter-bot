@@ -2269,7 +2269,7 @@ lodash.snakecase@^4.1.1:
   resolved "https://registry.npmjs.org/lodash.snakecase/-/lodash.snakecase-4.1.1.tgz"
   integrity sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==
 
-lodash@^4.17.21, lodash@^4.17.4:
+lodash@^4.17.21, lodash@^4.17.4, lodash@^4.17.5:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -2934,6 +2934,13 @@ ts-mixer@^6.0.3:
   version "6.0.3"
   resolved "https://registry.npmjs.org/ts-mixer/-/ts-mixer-6.0.3.tgz"
   integrity sha512-k43M7uCG1AkTyxgnmI5MPwKoUvS/bRvLvUb7+Pgpdlmok8AoqmUaZxUUw8zKM5B1lqZrt41GjYgnvAi0fppqgQ==
+
+ts-mockito@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/ts-mockito/-/ts-mockito-2.6.1.tgz#bc9ee2619033934e6fad1c4455aca5b5ace34e73"
+  integrity sha512-qU9m/oEBQrKq5hwfbJ7MgmVN5Gu6lFnIGWvpxSjrqq6YYEVv+RwVFWySbZMBgazsWqv6ctAyVBpo9TmAxnOEKw==
+  dependencies:
+    lodash "^4.17.5"
 
 ts-node@^10.9.1:
   version "10.9.1"

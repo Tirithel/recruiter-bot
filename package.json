@@ -29,7 +29,8 @@
   "dependencies": {
     "discord.js": "14",
     "dotenv": "^16.3.1",
-    "es2020": "^1.1.9"
+    "es2020": "^1.1.9",
+    "ts-mockito": "^2.6.1"
   },
   "main": "src/index.ts",
   "license": "Apache-2.0",
