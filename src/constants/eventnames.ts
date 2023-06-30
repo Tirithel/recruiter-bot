@@ -3,4 +3,5 @@ export class EventName {
   static readonly UNKNOWN_INTERACTION_EVENT: string =
     "unknown-interaction-event";
   static readonly LOG_EVENT: string = "log-event";
+  static readonly GUILD_JOIN_EVENT: string = "guild-join-event";
 }

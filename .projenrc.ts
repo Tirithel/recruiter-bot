@@ -8,7 +8,7 @@ const project = new typescript.TypeScriptAppProject({
   prettier: true,
   eslint: false,
   gitignore: [".env"],
-  deps: ["discord.js@14", "dotenv", "es2020"],
+  deps: ["discord.js@14", "dotenv", "aws-sdk", "es2020"],
   devDeps: ["ts-mockito"],
   /* The description is just a string that helps people understand the purpose of the package. */
   description: "recruitment bot for managing guild applications",

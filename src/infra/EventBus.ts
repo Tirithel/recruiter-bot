@@ -17,13 +17,13 @@ export class EventBus {
     );
 
     handlers.forEach((handler) => {
-      console.debug(
-        `[EventBus]: onEvent - event [${event.name}], handler [${handler.constructor.name}]`
-      );
+      // console.debug(
+      //   `[EventBus]: onEvent - event [${event.name}], handler [${handler.constructor.name}]`
+      // );
       handler.onEvent(event); // TODO: Async
-      console.debug(
-        `[EventBus]: afterEvent - event [${event.name}], handler [${handler.constructor.name}]`
-      );
+      // console.debug(
+      //   `[EventBus]: afterEvent - event [${event.name}], handler [${handler.constructor.name}]`
+      // );
     });
   }
 

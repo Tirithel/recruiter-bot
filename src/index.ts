@@ -26,6 +26,10 @@ eventBus.subscribe(EventName.READY_EVENT, printHandler);
 
 // LOG_EVENT
 eventBus.subscribe(EventName.LOG_EVENT, printHandler);
+
+// GUILD_JOIN_EVENT
+eventBus.subscribe(EventName.GUILD_JOIN_EVENT, printHandler);
+
 // ... Other Events ...
 
 // Event Producers
