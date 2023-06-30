@@ -4,7 +4,7 @@ import { DomainInteractionClient } from "../client/DomainInteractionClient";
 import { EventName } from "../constants/eventnames";
 import { GuildEvent } from "../domain/events/GuildEvent";
 
-export class DomainEventHandler extends Handler {
+export class GuildEventHandler extends Handler {
   client: Client;
   domainClient: DomainInteractionClient;
 
@@ -17,8 +17,11 @@ export class DomainEventHandler extends Handler {
   onEvent(event: GuildEvent): void {
     switch (event.name) {
       case EventName.GUILD_JOIN_EVENT:
-        this.domainClient.updateServerSettings(event.guild.id, {});
-        console.info(`[DomainEventHandler]: ${event.name} - initialized guild settings.`);
+        this.domainClient.updateServerSettings(event.guild.id, {
+          enableWelcomePost: false,
+          acceptingApplications: false,
+        });
+        console.info(`[GuildEventHandler]: ${event.name} - initialized guild settings.`);
     }
   }
 }

@@ -6,25 +6,63 @@ import { LogEvent } from "../domain/events/DomainEvent";
 
 const event: BotEvent = {
   name: "interactionCreate",
-  execute: (interaction: Interaction, bus: EventBus) => {
+  execute: (interaction: Interaction, eventBus: EventBus) => {
     switch (interaction.type) {
       case InteractionType.ApplicationCommand:
-        bus.publish(new LogEvent("an application command happened"));
+        eventBus.publish(new LogEvent(`a user used [${interaction.commandName}]`));
+        executeSlashCommand(interaction, eventBus);
         break;
       case InteractionType.MessageComponent:
-        bus.publish(new LogEvent("a message component event happened"));
+        eventBus.publish(new LogEvent("a message component event happened"));
         break;
       case InteractionType.ApplicationCommandAutocomplete:
-        bus.publish(new LogEvent("an application command autocomplete event happened"));
+        eventBus.publish(new LogEvent("an application command autocomplete event happened"));
         break;
       case InteractionType.ModalSubmit:
-        bus.publish(new LogEvent("a modal submit event happened"));
+        eventBus.publish(new LogEvent("a modal submit event happened"));
         break;
       default:
-        bus.publish(new UnknownInteractionEvent(interaction, "unknown interaction happened"));
-        bus.publish(new LogEvent("an unknown event happened"));
+        eventBus.publish(new UnknownInteractionEvent(interaction, "unknown interaction happened"));
+        eventBus.publish(new LogEvent("an unknown event happened"));
     }
   },
 };
+
+function executeSlashCommand(interaction: Interaction, eventBus: EventBus) {
+  if (!interaction.isChatInputCommand()) return;
+  let command = interaction.client.slashCommands.get(interaction.commandName);
+  let cooldown = interaction.client.cooldowns.get(
+    `${interaction.commandName}-${interaction.user.username}`
+  );
+  if (!command) return;
+  if (command.cooldown && cooldown) {
+    if (Date.now() < cooldown) {
+      interaction.reply({
+        content: `Please wait ${Math.floor(
+          Math.abs(Date.now() - cooldown) / 1000
+        )} second(s) to use this command again`,
+        ephemeral: true,
+      });
+      setTimeout(() => interaction.deleteReply(), 5000);
+      return;
+    }
+
+    interaction.client.cooldowns.set(
+      `${interaction.commandName}-${interaction.user.username}`,
+      Date.now() + command.cooldown * 1000
+    );
+    setTimeout(() => {
+      interaction.client.cooldowns.delete(
+        `${interaction.commandName}-${interaction.user.username}`
+      );
+    }, command.cooldown * 1000);
+  } else if (command.cooldown && !cooldown) {
+    interaction.client.cooldowns.set(
+      `${interaction.commandName}-${interaction.user.username}`,
+      Date.now() + command.cooldown * 1000
+    );
+  }
+  command.execute(interaction, eventBus);
+}
 
 export default event;

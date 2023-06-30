@@ -6,10 +6,11 @@ import {
   Message,
   AutocompleteInteraction,
 } from "discord.js";
+import { EventBus } from "./infra/EventBus";
 
 export interface SlashCommand {
   command: SlashCommandBuilder | any;
-  execute: (interaction: CommandInteraction) => void;
+  execute: (interaction: CommandInteraction, eventBus: EventBus) => void;
   autocomplete?: (interaction: AutocompleteInteraction) => void;
   cooldown?: number; // in seconds
 }

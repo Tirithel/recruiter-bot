@@ -1,3 +1,29 @@
 export interface ServerSettings {
-  welcomeMessage?: { content?: string; embeds?: Array<any>; components?: Array<any> };
+  welcomeChannel?: string; // discord channel ID
+  enableWelcomePost: boolean;
+  acceptingApplications: boolean;
+  webLink?: string;
+  welcomePost?: {
+    bannerAsset?: string;
+    thumbnailAsset?: string;
+    title: string;
+    description: string;
+    color?: number;
+    additionalEmbeds?: [
+      {
+        title: string;
+        description: string;
+        color?: number;
+        fields?: [
+          {
+            name?: string;
+            value?: string;
+            inline?: boolean;
+          }
+        ];
+        footer?: string;
+        timestamp?: boolean;
+      }
+    ];
+  };
 }

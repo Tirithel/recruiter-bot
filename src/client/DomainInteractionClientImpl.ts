@@ -5,7 +5,14 @@ export class DomainInteractionClientImpl extends DomainInteractionClient {
   private guilds = new Map<string, ServerSettings>();
 
   getServerSettings(discordId: string): Promise<ServerSettings> {
-    return new Promise((r) => r(this.guilds.get(discordId) || {}));
+    return new Promise((r) =>
+      r(
+        this.guilds.get(discordId) || {
+          enableWelcomePost: false,
+          acceptingApplications: false,
+        }
+      )
+    );
   }
   updateServerSettings(discordId: string, settings: ServerSettings): Promise<boolean> {
     return new Promise((r) => {
