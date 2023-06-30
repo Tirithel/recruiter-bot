@@ -3,6 +3,6 @@ import { DomainEvent } from "./DomainEvent";
 
 export class ReadyEvent extends DomainEvent {
   constructor() {
-    super(EventName.READY_EVENT);
+    super(EventName.READY_EVENT, "server is up");
   }
 }

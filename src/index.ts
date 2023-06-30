@@ -24,6 +24,8 @@ const eventBus = new EventBus();
 // READY_EVENT
 eventBus.subscribe(EventName.READY_EVENT, printHandler);
 
+// LOG_EVENT
+eventBus.subscribe(EventName.LOG_EVENT, printHandler);
 // ... Other Events ...
 
 // Event Producers
@@ -37,7 +39,7 @@ readdirSync(eventsDir).forEach((file) => {
     ? client.once(event.name, (...args) => event.execute(...args, eventBus))
     : client.on(event.name, (...args) => event.execute(...args, eventBus));
 
-  console.log(`successfully loaded event-producer [${event.name}]`);
+  console.info(`[Main]: successfully loaded event-producer [${event.name}]`);
 });
 
 // Slash Commands

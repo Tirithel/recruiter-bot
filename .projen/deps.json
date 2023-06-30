@@ -31,6 +31,10 @@
       "type": "build"
     },
     {
+      "name": "ts-mockito",
+      "type": "build"
+    },
+    {
       "name": "ts-node",
       "type": "build"
     },
@@ -49,10 +53,6 @@
     },
     {
       "name": "es2020",
-      "type": "runtime"
-    },
-    {
-      "name": "ts-mockito",
       "type": "runtime"
     }
   ],
