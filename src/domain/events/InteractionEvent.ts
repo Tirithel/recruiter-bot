@@ -6,9 +6,20 @@ export interface InteractionEvent extends DomainEvent {
   interaction: Interaction;
 }
 
+export class SlashApplyEvent implements InteractionEvent {
+  interaction: Interaction;
+  readonly name: string = EventName.SLASH_APPLY_EVENT;
+  msg?: string | undefined;
+
+  constructor(interaction: Interaction, msg?: string) {
+    this.msg = msg;
+    this.interaction = interaction;
+  }
+}
+
 export class UnknownInteractionEvent implements InteractionEvent {
   interaction: Interaction;
-  name: string = EventName.UNKNOWN_INTERACTION_EVENT;
+  readonly name: string = EventName.UNKNOWN_INTERACTION_EVENT;
   msg?: string | undefined;
 
   constructor(interaction: Interaction, msg?: string) {
