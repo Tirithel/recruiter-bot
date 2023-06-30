@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
 import { Handler } from "../infra/Handler";
-import { DomainEvent } from "../events/DomainEvent";
+import { DomainEvent } from "../domain/events/DomainEvent";
 
 export class PrintHandler extends Handler {
   client: Client;

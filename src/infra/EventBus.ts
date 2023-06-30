@@ -1,4 +1,4 @@
-import { DomainEvent } from "../events/DomainEvent";
+import { DomainEvent } from "../domain/events/DomainEvent";
 import { Handler } from "./Handler";
 
 export class EventBus {
@@ -31,8 +31,6 @@ export class EventBus {
     let currentHandlers: Array<Handler> = this.subscribers.get(eventName) ?? [];
     currentHandlers.push(handler);
     this.subscribers.set(eventName, currentHandlers);
-    console.info(
-      `[EventBus]: [${handler.constructor.name}] is now listening to [${eventName}]`
-    );
+    console.info(`[EventBus]: [${handler.constructor.name}] is now listening to [${eventName}]`);
   }
 }

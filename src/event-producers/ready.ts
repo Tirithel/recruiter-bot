@@ -1,6 +1,6 @@
 import { BotEvent } from "../types";
 import { EventBus } from "../infra/EventBus";
-import { ReadyEvent } from "../events/ReadyEvent";
+import { ReadyEvent } from "../domain/events/DomainEvent";
 import { Client } from "discord.js";
 
 const event: BotEvent = {
