@@ -6,10 +6,14 @@ import { config } from "dotenv";
 import { EventBus } from "./infra/EventBus";
 import { PrintHandler } from "./handlers/PrintHandler";
 import { EventName } from "./constants/eventnames";
+import { DomainInteractionClient } from "./client/DomainInteractionClient";
+import { DomainInteractionClientImpl } from "./client/DomainInteractionClientImpl";
+import { DomainEventHandler } from "./handlers/DomainEventHandler";
 
 config();
 
 const client: Client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const domainClient: DomainInteractionClient = new DomainInteractionClientImpl();
 
 client.slashCommands = new Collection<string, SlashCommand>();
 client.commands = new Collection<string, Command>();
@@ -17,6 +21,7 @@ client.cooldowns = new Collection<string, number>();
 
 // Set up Handlers
 const printHandler: PrintHandler = new PrintHandler(client);
+const domainEventHandler: DomainEventHandler = new DomainEventHandler(client, domainClient);
 
 // Set up EventBus
 const eventBus = new EventBus();
@@ -29,6 +34,7 @@ eventBus.subscribe(EventName.LOG_EVENT, printHandler);
 
 // GUILD_JOIN_EVENT
 eventBus.subscribe(EventName.GUILD_JOIN_EVENT, printHandler);
+eventBus.subscribe(EventName.GUILD_JOIN_EVENT, domainEventHandler);
 
 // ... Other Events ...
 

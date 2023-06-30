@@ -6,6 +6,9 @@ const project = new typescript.TypeScriptAppProject({
   dependabot: true,
   projenrcTs: true,
   prettier: true,
+  prettierOptions: {
+    overrides: [{ files: "*", options: { printWidth: 100 } }],
+  },
   eslint: false,
   gitignore: [".env"],
   deps: ["discord.js@14", "dotenv", "aws-sdk", "es2020"],

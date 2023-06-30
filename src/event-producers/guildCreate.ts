@@ -1,6 +1,6 @@
 import { Guild } from "discord.js";
 import { BotEvent } from "../types";
-import { GuildJoinEvent } from "../events/GuildJoinEvent";
+import { GuildJoinEvent } from "../domain/events/GuildEvent";
 import { EventBus } from "../infra/EventBus";
 
 const event: BotEvent = {
