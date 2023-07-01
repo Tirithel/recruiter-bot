@@ -5,4 +5,5 @@ export class EventName {
   static readonly LOG_EVENT: string = "log-event";
   static readonly SLASH_APPLY_EVENT: string = "slash-apply-event";
   static readonly SLASH_CONFIG_EVENT: string = "slash-config-event";
+  static readonly SLASH_SET_EVENT: string = "slash-set-event";
 }
