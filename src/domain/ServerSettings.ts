@@ -26,6 +26,10 @@ export interface OptionalConfig {
     welcomeChannelID?: string; // discord channel ID
     recruitmentChannelID?: string; // discord channel ID
   };
+  roles?: {
+    recruiterRoleID?: string; // discord role ID
+    memberRoleID?: string; // discord role ID
+  };
   webLink?: string;
   applicationPost?: {
     applyPost: EmbedSetting;
