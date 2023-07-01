@@ -1,19 +1,11 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  Client,
-  EmbedBuilder,
-  InteractionType,
-} from "discord.js";
+import { Client, InteractionType } from "discord.js";
 import { Handler } from "../infra/Handler";
 import { DomainInteractionClient } from "../client/DomainInteractionClient";
 import { EventName } from "../constants/eventnames";
 import { InteractionEvent } from "../domain/events/InteractionEvent";
 import { LogEvent } from "../domain/events/DomainEvent";
 import { EventBus } from "../infra/EventBus";
-import { ServerSettings } from "../domain/ServerSettings";
-import { Colors } from "../constants/colors";
+import { ServerSettings, embedBuilder, buttonActionRowBuilder } from "../domain/ServerSettings";
 
 export class InteractionEventHandler extends Handler {
   client: Client;
@@ -62,12 +54,13 @@ async function slashApply(
 
   eventBus.publish(
     new LogEvent(
-      `[InteractionEventHandler]@${event.interaction.guildId}: ${event.name
+      `[InteractionEventHandler]@${event.interaction.guildId}: ${
+        event.name
       } - ${serverSettings.toString()}`,
       {
-        actor: `${event.interaction.user.id}`,
-        action: "applied",
-        subject: `${event.interaction.guildId}`,
+        actor: `bot`,
+        action: "application-response",
+        subject: `${event.interaction.user.id}@${event.interaction.guildId}`,
         metadata: {
           timestamp: Date.now(),
         },
@@ -75,30 +68,13 @@ async function slashApply(
     )
   );
 
-  if (serverSettings.enableWelcomePost && serverSettings.welcomePost) {
-    const applicationEmbed = new EmbedBuilder()
-      .setColor(serverSettings.welcomePost.color || Colors.Discord.BLURPLE)
-      .setTitle(serverSettings.welcomePost.title)
-      .setDescription(serverSettings.welcomePost.description)
-      .setTimestamp();
-
-    const apply = new ButtonBuilder()
-      .setCustomId("test")
-      .setLabel("Apply")
-      .setStyle(ButtonStyle.Success)
-      .setDisabled(serverSettings.acceptingApplications || true);
-
-    const link = new ButtonBuilder()
-      .setLabel("Learn More")
-      .setStyle(ButtonStyle.Link)
-      .setDisabled(serverSettings.webLink ? false : true)
-      .setURL(serverSettings.webLink || "http://google.com/");
-
-    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(apply, link);
+  if (!serverSettings.features.disableApplyPost && serverSettings.applicationPost) {
+    const embeds = embedBuilder([serverSettings.applicationPost.applyPost]);
+    const buttons = buttonActionRowBuilder(serverSettings);
 
     await event.interaction.reply({
-      embeds: [applicationEmbed],
-      components: [row],
+      embeds: embeds,
+      components: [buttons],
       ephemeral: true,
     });
   } else {
@@ -110,22 +86,34 @@ async function slashApply(
 }
 
 async function slashConfig(event: InteractionEvent, domainClient: DomainInteractionClient) {
-  if (
-    !event.interaction.guildId ||
-    event.interaction.type === InteractionType.ApplicationCommandAutocomplete
-  )
+  const interaction = event.interaction;
+  if (!interaction.guildId || interaction.type === InteractionType.ApplicationCommandAutocomplete) {
     return;
-  const updated: boolean = await domainClient.updateServerSettings(event.interaction.guildId, {
-    enableWelcomePost: true,
-    welcomePost: {
-      title: "Test",
-      description: "description",
-      color: Math.floor(Math.random() * 16777215),
+  }
+  const updated: boolean = await domainClient.updateServerSettings(interaction.guildId, {
+    webLink:
+      "https://forums.ashesofcreation.com/discussion/41835/na-eu-oce-jp-enveus-hardcore-pvp-pve-economic-crafting-guild#latest",
+    applicationPost: {
+      applyPost: {
+        title: "Enveus",
+        description:
+          "Enveus is a dedicated PvX Guild aiming to solidify its position as the dominant force in Ashes of Creation, while maintaining our unrivaled activity throughout the game's development.\n\nWe are actively seeking passionate players __with Alpha 2 access__, who are committed to extensively testing and actively participating in future testing phases of Ashes of Creation.",
+        thumbnailURL:
+          "https://media.discordapp.net/attachments/521920757702328330/671809429200437268/3HydraNoRingWhite.png",
+        color: Math.floor(Math.random() * 16777215),
+        footer: {
+          text: "We are looking forward to your application!",
+          iconURL:
+            "https://media.discordapp.net/attachments/521920757702328330/671809429200437268/3HydraNoRingWhite.png",
+        },
+      },
     },
   });
 
-  event.interaction.reply({
+  await interaction.reply({
     content: `fake update complete successfully [${updated}]`,
     ephemeral: true,
   });
+
+  setTimeout(() => interaction.deleteReply(), 5000);
 }
