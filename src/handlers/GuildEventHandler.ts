@@ -17,10 +17,7 @@ export class GuildEventHandler extends Handler {
   onEvent(event: GuildEvent): void {
     switch (event.name) {
       case EventName.GUILD_JOIN_EVENT:
-        this.domainClient.updateServerSettings(event.guild.id, {
-          enableWelcomePost: false,
-          acceptingApplications: false,
-        });
+        this.domainClient.createServer(event.guild.id);
         console.info(
           `[GuildEventHandler]${event.guild.id}: ${event.name} - initialized guild settings.`
         );
