@@ -4,4 +4,5 @@ export class EventName {
   static readonly GUILD_JOIN_EVENT: string = "guild-join-event";
   static readonly LOG_EVENT: string = "log-event";
   static readonly SLASH_APPLY_EVENT: string = "slash-apply-event";
+  static readonly SLASH_CONFIG_EVENT: string = "slash-config-event";
 }

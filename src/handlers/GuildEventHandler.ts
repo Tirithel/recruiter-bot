@@ -21,7 +21,9 @@ export class GuildEventHandler extends Handler {
           enableWelcomePost: false,
           acceptingApplications: false,
         });
-        console.info(`[GuildEventHandler]: ${event.name} - initialized guild settings.`);
+        console.info(
+          `[GuildEventHandler]${event.guild.id}: ${event.name} - initialized guild settings.`
+        );
     }
   }
 }

@@ -1,7 +1,7 @@
 export interface ServerSettings {
   welcomeChannel?: string; // discord channel ID
-  enableWelcomePost: boolean;
-  acceptingApplications: boolean;
+  enableWelcomePost?: boolean;
+  acceptingApplications?: boolean;
   webLink?: string;
   welcomePost?: {
     bannerAsset?: string;

@@ -46,6 +46,9 @@ eventBus.subscribe(EventName.GUILD_JOIN_EVENT, guildEventHandler);
 // SLASH_APPLY_EVENT
 eventBus.subscribe(EventName.SLASH_APPLY_EVENT, interactionEventHandler);
 
+// SLASH_CONFIG_EVENT
+eventBus.subscribe(EventName.SLASH_CONFIG_EVENT, interactionEventHandler);
+
 // ... Other Events ...
 
 // Event Producers
