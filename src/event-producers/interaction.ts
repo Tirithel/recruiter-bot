@@ -9,7 +9,19 @@ const event: BotEvent = {
   execute: (interaction: Interaction, eventBus: EventBus) => {
     switch (interaction.type) {
       case InteractionType.ApplicationCommand:
-        eventBus.publish(new LogEvent(`a user used [${interaction.commandName}]`));
+        eventBus.publish(
+          new LogEvent(
+            `a [user ${interaction.user.id} @ guild ${interaction.guildId}] used [${interaction.commandName}]`,
+            {
+              actor: `${interaction.user.id}`,
+              action: `${interaction.commandName}`,
+              subject: `${interaction.guildId}`,
+              metadata: {
+                timestamp: Date.now(),
+              },
+            }
+          )
+        );
         executeSlashCommand(interaction, eventBus);
         break;
       case InteractionType.MessageComponent:

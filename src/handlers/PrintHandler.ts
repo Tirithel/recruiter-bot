@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
 import { Handler } from "../infra/Handler";
-import { DomainEvent } from "../domain/events/DomainEvent";
+import { LogEvent } from "../domain/events/DomainEvent";
 
 export class PrintHandler extends Handler {
   client: Client;
@@ -10,9 +10,8 @@ export class PrintHandler extends Handler {
     this.client = client;
   }
 
-  onEvent(event: DomainEvent): void {
-    console.info(`[PrintHandler]: ${event.name} - ${event.msg}`);
-    // console.log(event.name);
-    // console.log(`logged in as ${this.client.user?.tag}`);
+  onEvent(event: LogEvent): void {
+    if (event.msg) console.info(`[PrintHandler]: ${event.msg}`);
+    if (event.event) console.info(event.event);
   }
 }

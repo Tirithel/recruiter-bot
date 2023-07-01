@@ -1,16 +1,15 @@
 import { Interaction, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../../types";
 import { EventBus } from "../../infra/EventBus";
-import { SlashApplyEvent } from "../../domain/events/InteractionEvent";
+import { SlashConfigEvent } from "../../domain/events/InteractionEvent";
 
 const command: SlashCommand = {
   command: new SlashCommandBuilder()
-    .setName("apply")
-    .setDescription("Shows the application process for the guild."),
+    .setName("config")
+    .setDescription("Fake configuration stub - placeholder."),
   execute: (interaction, eventBus: EventBus) => {
-    eventBus.publish(new SlashApplyEvent(<Interaction>interaction));
+    eventBus.publish(new SlashConfigEvent(<Interaction>interaction));
   },
-  cooldown: 0,
 };
 
 export default command;
