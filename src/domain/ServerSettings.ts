@@ -35,6 +35,7 @@ export interface OptionalConfig {
     applyPost: EmbedSetting;
   };
   welcomePost?: {
+    messageID?: string;
     bannerAsset?: string;
     embeds: EmbedSetting[];
   };

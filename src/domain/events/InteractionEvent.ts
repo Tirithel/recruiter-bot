@@ -28,6 +28,17 @@ export class SlashConfigEvent implements InteractionEvent {
   }
 }
 
+export class SlashSetEvent implements InteractionEvent {
+  interaction: Interaction;
+  readonly name: string = EventName.SLASH_SET_EVENT;
+  msg?: string | undefined;
+
+  constructor(interaction: Interaction, msg?: string) {
+    this.interaction = interaction;
+    this.msg = msg;
+  }
+}
+
 export class UnknownInteractionEvent implements InteractionEvent {
   interaction: Interaction;
   readonly name: string = EventName.UNKNOWN_INTERACTION_EVENT;

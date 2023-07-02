@@ -1,7 +1,7 @@
 import { ChannelType, SlashCommandBuilder } from "discord.js";
 import { SlashCommand } from "../../types";
 import { EventBus } from "../../infra/EventBus";
-import { LogEvent } from "../../domain/events/DomainEvent";
+import { SlashSetEvent } from "../../domain/events/InteractionEvent";
 
 const command: SlashCommand = {
   command: new SlashCommandBuilder()
@@ -64,14 +64,8 @@ const command: SlashCommand = {
         )
     ),
   execute: async (interaction, bus: EventBus) => {
-    bus.publish(
-      new LogEvent("set command", {
-        actor: interaction.user.id,
-        subject: "set-command",
-        action: interaction.guildId,
-        metadata: interaction.options,
-      })
-    );
+    if (interaction.isChatInputCommand())
+      bus.publish(new SlashSetEvent(interaction, interaction.options.getSubcommand()));
   },
   cooldown: 10,
 };

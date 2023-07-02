@@ -49,6 +49,9 @@ eventBus.subscribe(EventName.SLASH_APPLY_EVENT, interactionEventHandler);
 // SLASH_CONFIG_EVENT
 eventBus.subscribe(EventName.SLASH_CONFIG_EVENT, interactionEventHandler);
 
+// SLASH_SET_EVENT
+eventBus.subscribe(EventName.SLASH_SET_EVENT, interactionEventHandler);
+
 // ... Other Events ...
 
 // Event Producers

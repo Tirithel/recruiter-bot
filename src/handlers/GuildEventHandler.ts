@@ -21,6 +21,11 @@ export class GuildEventHandler extends Handler {
         console.info(
           `[GuildEventHandler]${event.guild.id}: ${event.name} - initialized guild settings.`
         );
+        break;
+      case EventName.GUILD_UPDATE_WELCOME_POST_EVENT:
+        // todo: think about how we can retrieve the old welcome post and either
+        //    1) update it or 2) move it to a new location.
+        break;
     }
   }
 }
